@@ -1,0 +1,21 @@
+<!-- src/main/resources/ws-config.xml -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="matiereEndpoint" class="com.dev.gestion_matieres.endpoint.MatiereEndpoint">
+        <property name="matiereRepository" ref="matiereRepository"/>
+    </bean>
+
+    <bean id="payloadMapping" class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+        <property name="defaultEndpoint" ref="matiereEndpoint"/>
+        <property name="interceptors">
+            <list>
+                <ref bean="payloadLoggingInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="payloadLoggingInterceptor" class="org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor"/>
+</beans>
